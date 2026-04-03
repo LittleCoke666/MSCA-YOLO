@@ -1,0 +1,6 @@
+train: /home/littlecoke/Desktop/MLDDBI_13800/train/images
+val: /home/littlecoke/Desktop/MLDDBI_13800/test/images
+
+nc: 8
+
+names: ['drink','smoke','phone by hand','hand on the wheel','play mobile by hand','face','eye','mouth']
