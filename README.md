@@ -1,2 +1,4 @@
 # MSCA-YOLO
-Code Implementation of the Thesis Real Time Driver Distraction Detection based on Rockchip RK3588
+
+Code Implementation of the Thesis MSCA-YOLO: Real-Time Driver Distraction Detection for RK3588 Embedded Platforms
+
