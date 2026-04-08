@@ -124,33 +124,33 @@ class HyPConv(nn.Module):
         return x
 
 # The original code, but the RKNN model does not support the torch.cdist operator
-# class HyperComputeModule(nn.Module):
-#     def __init__(self, c1, c2, threshold):
-#         super().__init__()
-#         self.threshold = threshold
-#         self.hgconv = HyPConv(c1, c2)
-#         self.bn = nn.BatchNorm2d(c2)
-#         self.act = nn.SiLU()
-#
-#     def forward(self, x):
-#         b, c, h, w = x.shape[0], x.shape[1], x.shape[2], x.shape[3]
-#         x = x.view(b, c, -1).transpose(1, 2).contiguous()
-#         feature = x.clone()
-#         distance = torch.cdist(feature, feature)
-#         hg = distance < self.threshold
-#         hg = hg.float().to(x.device).to(x.dtype)
-#         x = self.hgconv(x, hg).to(x.device).to(x.dtype) + x
-#         x = x.transpose(1, 2).contiguous().view(b, c, h, w)
-#         x = self.act(self.bn(x))
-#
-#         return x
-
 class HyperComputeModule(nn.Module):
+    def __init__(self, c1, c2, threshold):
+        super().__init__()
+        self.threshold = threshold
+        self.hgconv = HyPConv(c1, c2)
+        self.bn = nn.BatchNorm2d(c2)
+        self.act = nn.SiLU()
+
+    def forward(self, x):
+        b, c, h, w = x.shape[0], x.shape[1], x.shape[2], x.shape[3]
+        x = x.view(b, c, -1).transpose(1, 2).contiguous()
+        feature = x.clone()
+        distance = torch.cdist(feature, feature)
+        hg = distance < self.threshold
+        hg = hg.float().to(x.device).to(x.dtype)
+        x = self.hgconv(x, hg).to(x.device).to(x.dtype) + x
+        x = x.transpose(1, 2).contiguous().view(b, c, h, w)
+        x = self.act(self.bn(x))
+
+        return x
+
+class MSCA(nn.Module):
 
     def __init__(self, c1, c2, k=7, dilations=(1, 2, 3)):
         super().__init__()
         # c1 == c2 是必须的（残差）
-        assert c1 == c2, f"HyperComputeModule requires c1 == c2, got {c1}, {c2}"
+        assert c1 == c2, f"MSCA requires c1 == c2, got {c1}, {c2}"
         # 兼容 YAML 传 int / list
         if isinstance(dilations, int):
             dilations = (dilations,)

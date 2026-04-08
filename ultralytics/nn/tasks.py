@@ -1689,15 +1689,13 @@ def parse_model(d, ch, verbose=True):
             SCDown,
             C2fCIB,
             A2C2f,
-            C3k2_LSK,
             C3k2_partconv,
-            ContextGuidedBlock_Down,
-            C3k2_ContextGuidedBlock,
             UniversalInvertedBottleneckBlock,
     	    C3k2_UIB,
             MobileOne,
             MANet,
             HyperComputeModule,
+            MSCA,
             DepSepConv,
         }
     )
@@ -1718,15 +1716,13 @@ def parse_model(d, ch, verbose=True):
             C2fCIB,
             C2PSA,
             A2C2f,
-            C3k2_LSK,
             C3k2_partconv,
-            ContextGuidedBlock_Down,
-            C3k2_ContextGuidedBlock,
             UniversalInvertedBottleneckBlock,
     	    C3k2_UIB,
             MobileOne,
             MANet,
             HyperComputeModule,
+            MSCA,
             DepSepConv,
         }
     )
